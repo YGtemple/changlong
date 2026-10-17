@@ -1,71 +1,41 @@
-# changlong ·「长隆灵犀」AI 智慧伴游参赛材料包
+<div align="right">
 
-> 一句话简介：长隆主题公园三阶段 AI 智慧伴游系统参赛材料包
+**[English](README.md)** · [简体中文](README.zh-CN.md)
 
-## 一、项目概述与定位
+</div>
 
-本仓库是 **2026「AI 先锋未来人才大赛」长隆集团命题**的参赛项目「**长隆灵犀**」（Chimelong Lingxi）的完整材料包，全部为自包含的中文 HTML 文档（由 Trae Work 生成，统一样式：Manrope/Noto Sans SC 字体、奶油色背景、蓝色主色、青柠色点缀）。
+# changlong
 
-命题方（长隆集团）要求："**打破工具思维，让 AI 优雅穿梭于酒店、乐园、餐饮、零售之间实现多业态无感融合，将游客情绪价值转化为消费冲动**"。项目定位不是"更全的 AI 导览"（被动响应），而是"**会决策的伴游**"（主动决策）——围绕"游前感知 / 游中沉浸 / 游后留存"三阶段断裂，做一个把游客情绪价值转化为消费与复购的全周期 AI 伴游系统。
+An AI park-guide proposal for Chimelong, split into three phases.
 
-核心差异化理念贯穿全篇：
-- **从"更全"到"会决策"**：不做 RAG 问答，而做 Agent 状态机主动规划与调整；
-- **从"全自动"到"人在回路"**：按数据置信度三档分级（高置信自动切换且 15 分钟可撤销 / 中置信推荐+一键确认 / 低置信轻提示），掌控感比正确性更重要；
-- **从"游后生成"到"游中沉淀"**：用五元组 `(timestamp, location, photo, knowledge_point, emotion_tag)` 边走边攒，离园时纪念册已组装 80%。
+<sub>HTML · competition material</sub>
 
-目标用户明确锁定**二孩家庭亲子客群**（长隆暑期亲子客群占比超八成），主交互为家庭共享对话界面（家长手机为主）。
+---
 
-## 二、核心方案与能力
+## The idea
 
-1. **三阶段闭环**：
-   - 游前：家庭画像采集 + 智能路线规划（天气/排队/体力/餐饮/儿童年龄五约束求解），出 3 套方案（深度刷园/轻松亲子/雨天预案）；
-   - 游中：实时讲解（分龄）+ 动态路线切换 + 安全守护（儿童偏离 50 米提醒）+ 任务打卡 + 情绪感知推荐；
-   - 游后：AI 成长纪念册（图片+知识卡+成长轨迹）+ 双版本分享文案（给娃版知识向、给朋友圈版情绪向）。
-2. **技术架构**：LangGraph 总调度 + 三子图（游前慢思考/游中快响应/游后批量），通过共享 FamilyState 传递画像，不走 RPC；单体 Monolith 编排，待 MVP 跑通再拆。
-3. **五层技术栈**：①数据接入层（Adapter 统一接口，公开 API+众包+长隆官方三阶段路线）②园区知识层（RAG，动物讲解必须接 RAG+引用追溯，分龄语言由 LLM 负责）③决策引擎（ReAct 工具调用）④内容生成层（Qwen-Image / GLM-Image 文生图）⑤前端层（小程序）。
-4. **合规设计**：未成年人行为信号本地化处理不上云、原始数据 72 小时内删除、只留脱敏聚合画像、分享图自动模糊非家庭成员人脸。
-5. **量化目标**：事实内容幻觉率 ≤2%、路线规划响应 <2 秒、纪念册生成 <10 秒、家庭满意度 ≥4.3/5；定位 12–18 周 MVP，三阶段数据接入路线图（公开 API+合成 → 众包 → 长隆官方）。
+A day at a theme park is managed by the visitor and the queue board. This proposes a guide that works across the whole visit, in three phases:
 
-## 三、技术栈
+| Phase | What it does |
+|---|---|
+| Before | learn preferences, build a route, set expectations |
+| During | re-plan in real time — ride closures, queue length, weather, a tired child |
+| After | keep the record: photos, route taken, what worked |
 
-- 纯静态 HTML/CSS 文档站点（无后端、无构建）；引用 Google Fonts。
-- 方案中拟用技术：LangGraph（Agent 编排）、LLM（智谱 GLM 系列）、RAG 向量检索、Qwen-Image/GLM-Image（文生图）、微信小程序前端、气象/排队数据 API。
+The after phase is the part most park apps skip, and the part that makes a second visit easier.
 
-## 四、完整目录结构（全部位于仓库根目录）
+## What is in here
 
-| 文件 | 大小 | 内容 |
-|---|---|---|
-| `index.html` | 12KB | 材料包导航首页，总览 9 个文档入口与阅读建议 |
-| `README.md` | 50KB | 即《长隆灵犀-项目报名大纲》全文（项目名/背景/目标用户/核心功能/技术方案/落地路径/量化指标/时间表） |
-| `长隆灵犀-项目报名大纲.html` | 50KB | 与 README 同源的报名大纲独立页 |
-| `长隆灵犀-报名框架-最终版.html` | 60KB | 完整报名框架 + 四阶段（背景/定位/方案/落地）展开的最终版 |
-| `开题报告补充材料.html` | 28KB | 选题背景（长隆客流、亲子市场规模、5A 景区 AI 导览投诉激增 37%、故宫 AR 43% "像背书"）+ 竞争格局（迪士尼 MyMagic+/Genie、千小宝 AI 伴游、百度 AR 动物园）+ 数据支撑 |
-| `技术文档.html` | 31KB | Agent 框架选型对比（LangGraph/AutoGen/CrewAI 12 维度）+ 五层架构 + 数据接入路线图 + 合规设计 |
-| `数据分析样本.html` | 26KB | 10 个模拟家庭的合成数据集（家庭画像/约束/路线结果/满意度），标注合成方法，用于演示 |
-| `相关项目经验.html` | 15KB | 团队过往项目与可迁移经验、分工与补位 |
-| `圆桌讨论记录.html` | 35KB | 6 人 60 分钟圆桌：5 个议题（人机边界/痛点挖掘/技术取舍/同类案例/数据与合规），含分歧、共识与决策结论 |
-| `研究笔记.html` | 22KB | 12 篇过程笔记（3 周跨度）：关键决策取舍、3 位二孩妈妈访谈、2 个失败实验（纯 LLM 讲解、全自动切换）、3 个认知转变、待解问题 |
-| `参考资料清单.html` | 29KB | 42 条公开资料，分 6 类（技术框架 14/行业报告 9/长隆官方 6/同类案例 7/用户研究 4/赛事政策 2），每条标注"被引用于"具体文档章节，可交叉验证 |
+Competition submission material: proposal documents and HTML presentations covering the three phases, the user journey, and the technical approach.
 
-## 五、关键内容解读
+## Scope note
 
-- **`README.md`（报名大纲）**：项目主文档。含 P0（一票否决项：团队三人姓名/分工、AI 是否为核心而非套壳、长隆命题匹配度、是否真落地）与 P1（差异化、用户痛点真实、技术方案可行性、数据可获得性、商业模式）的完整应答框架，是全材料包的"纲"。
-- **`研究笔记.html`**：最具过程感的文档。记录了两个关键失败实验——①纯 LLM 给 5 岁孩子讲考拉，内容对但无情境、漏长隆特有事实，倒逼出"动物讲解必须 RAG+引用追溯"；②全自动路线切换导致用户"被 AI 接管"反感，满意度从 3.2 降到改为人在回路后升至 4.3。三位二孩妈妈访谈得出三条洞察：决策必须留人在回路入口、分享文案需双版本、儿童防走失优先级高于讲解质量。
-- **`技术文档.html`**：明确最大风险是"长隆官方排队 API/演出排期/动物讲解授权在海选阶段拿不到"，工程解法是"适配层 + 数据接入路线图"——核心 Agent 只依赖接口不依赖实现，换数据源只改 adapter 文件。
-- **`参考资料清单.html`**：42 条资料全部公开可验证，每条标注被哪个文档哪一章节引用，体现研究的可追溯性。
-- **`数据分析样本.html`**：明确标注为合成数据（10 个模拟家庭），并坦承实验室数据局限，计划招募 2–3 个真实二孩家庭实地测试。
+The proposal describes a system rather than shipping one. Where it specifies behaviour — such as re-planning on ride closure — that behaviour is described as a flow, not implemented against live park data.
 
-## 六、运行与使用方式
+## Related
 
-纯静态站点，用浏览器打开 `index.html` 即得材料包导航；各 HTML 页底部均有"返回材料包首页"链接。无安装、无依赖、无后端。
+- [Profile](https://github.com/YGtemple) — all projects
 
-## 七、数据/资源构成
+## License
 
-仓库**无图片、音视频、字体、压缩包等二进制文件**，11 个文件全部为文本（HTML/Markdown）。唯一外部资源是 HTML 中 `@import` 的 Google Fonts（CDN 在线加载，非仓库文件）。所有外部数据均为公开网络资料的引用，合成数据已明确标注。
-
-## 八、项目特点
-
-1. **过程完整、诚实**：不仅有光鲜的方案，还公开失败实验、未达标指标（幻觉率 3.1% 高于 2% 目标）、数据权限风险与样本量焦虑，体现研究的真实与严谨。
-2. **以用户痛点反推架构**：从投诉事件（35 周年排队 6 小时退票、狮子淋雨）与二孩家庭访谈出发，而非从技术炫技出发。
-3. **合规前置**：未成年人数据保护在 Demo 阶段就纳入设计，而非联调时补。
-4. **可迁移思路**：用"适配层 + 三阶段数据接入路线图"回应"没有真实数据怎么落地"这一历届 AI 文旅项目通病。
+MIT
